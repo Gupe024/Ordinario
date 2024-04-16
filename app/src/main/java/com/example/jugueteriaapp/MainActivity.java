@@ -1,7 +1,5 @@
 package com.example.jugueteriaapp;
 
-import static com.example.jugueteriaapp.R.id.Registro2;
-import static com.example.jugueteriaapp.R.id.password;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     EditText user;
     EditText pass;
     Button buttoniniciar;
-    Button buttonregistrarse = findViewById(R.id.Registro2);
+    Button registrobutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +31,19 @@ public class MainActivity extends AppCompatActivity {
         user = findViewById(R.id.usuario);
         pass = findViewById(R.id.password);
         buttoniniciar = findViewById(R.id.iniciar);
+        registrobutton = findViewById(R.id.registro2);
 
         buttoniniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainActivity3.class);
                 iniciarSesion();
+                startActivity(intent);
             }
+
         });
 
-        buttonregistrarse.setOnClickListener(new View.OnClickListener() {
+        registrobutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MainActivity2.class);
@@ -55,19 +57,25 @@ public class MainActivity extends AppCompatActivity {
         String usuario = user.getText().toString();
         String password = pass.getText().toString();
 
-        if(verificarcredenciales(usuario, password)){
+        if(verificarCredenciales(usuario, password)){
             Toast.makeText(this, "Bienvenid@"+usuario+",¿Qué te podemos llevar a tú casa este día? Por favor selecciona:", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, "Usuario y contraseña incorrectos", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private boolean verificarcredenciales(String usuario, String password) {
+    private boolean verificarCredenciales(String usuario, String password) {
+
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
 
-        String UsuarioAlmacenado = sharedPreferences.getString("Usuario", "");
-        String passAlmacenado = sharedPreferences.getString("Password","");
+        String usuarioAlmacenado = sharedPreferences.getString("usuario", null);
+        String passAlmacenado = sharedPreferences.getString("password", null);
 
-        return usuario.equals(UsuarioAlmacenado) && password.equals(passAlmacenado);
+        if (usuarioAlmacenado == null || passAlmacenado == null) {
+            Toast.makeText(this, "Error: No se encontraron credenciales almacenadas", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return usuario.equals(usuarioAlmacenado) && password.equals(passAlmacenado);
     }
 }

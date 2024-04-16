@@ -17,27 +17,32 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="60dp"
             android:text="MENÚ"
             android:textSize="40sp"
             android:fontFamily="sans-serif-black"
             android:textStyle="italic"/>
 
         <ImageButton
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            />
+            android:id="@+id/nina"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
+            android:background="@drawable/ni_a" />
 
         <ImageButton
-            android:layout_width="200dp"
-            android:layout_height="200dp"/>
+            android:id="@+id/nino"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
+            android:background="@drawable/ni_o"
+            android:layout_marginTop="20dp"/>
 
         <ImageButton
-            android:layout_width="200dp"
-            android:layout_height="200dp"/>
+            android:id="@+id/bebe"
+            android:layout_width="190dp"
+            android:layout_height="190dp"
+            android:background="@drawable/bebe"
+            android:layout_marginTop="20dp"/>
         
     </LinearLayout>
-
-
 
 </RelativeLayout>

@@ -41,7 +41,7 @@ public class MainActivity2 extends AppCompatActivity {
         Registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainActivity2.this, MainActivity.class);
                 registroUsuario(
                     Editnombre.getText().toString(),
                     Editusuario.getText().toString(),
@@ -50,7 +50,7 @@ public class MainActivity2 extends AppCompatActivity {
                     Editcorreo.getText().toString(),
                     Editdireccion.getText().toString()
                 );
-
+                startActivity(intent);
             }
         });
     }
@@ -70,8 +70,6 @@ public class MainActivity2 extends AppCompatActivity {
 
         Toast.makeText(this, "¡Usuario registrado correctamente!", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(MainActivity2.this, MainActivity.class);
+
     }
-
-
 }
