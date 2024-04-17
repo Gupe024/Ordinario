@@ -15,8 +15,8 @@
         android:orientation="vertical">
         
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
             android:layout_marginTop="60dp"
             android:text="MENÚ"
             android:textSize="40sp"
@@ -27,6 +27,7 @@
             android:id="@+id/nina"
             android:layout_width="190dp"
             android:layout_height="190dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/ni_a" />
 
         <ImageButton

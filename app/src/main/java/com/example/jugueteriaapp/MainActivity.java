@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         String password = pass.getText().toString();
 
         if(verificarCredenciales(usuario, password)){
-            Toast.makeText(this, "Bienvenid@"+usuario+",¿Qué te podemos llevar a tú casa este día? Por favor selecciona:", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bienvenid@"+usuario+",¿Qué te llevaras a tú casa este día?", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(this, "Usuario y contraseña incorrectos", Toast.LENGTH_SHORT).show();
         }

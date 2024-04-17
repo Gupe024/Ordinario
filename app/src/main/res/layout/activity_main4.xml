@@ -9,61 +9,71 @@
 
 
    <TextView
+       android:id="@+id/Titulos"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:hint="Productos..."
        android:textSize="30dp"
-       android:textColor="@color/white"
+       android:textColor="@color/black"
        android:fontFamily="sans-serif-black"
        android:textStyle="italic"
-       android:layout_marginTop="35dp"
-       android:layout_marginStart="140dp"/>
+       android:layout_marginTop="70dp"
+       android:layout_marginStart="100dp"/>
 
    <ImageButton
-       android:layout_width="130dp"
-       android:layout_height="130dp"
-       android:layout_marginTop="130dp"
-       android:layout_marginStart="40dp" />
+       android:id="@+id/Imagen1"
+       android:layout_width="150dp"
+       android:layout_height="150dp"
+       android:layout_marginTop="150dp"
+       android:layout_marginStart="40dp"
+       android:scaleType="centerCrop"/>
 
    <TextView
+       android:id="@+id/Subtitulo1"
        android:layout_width="150dp"
-       android:layout_height="50dp"
-       android:hint="Juquete1"
-       android:textSize="15sp"
+       android:layout_height="wrap_content"
+       android:hint="Juquete1..."
+       android:textSize="30sp"
        android:textColor="@color/black"
-       android:layout_marginTop="140dp"
-       android:layout_marginStart="160dp"
+       android:layout_marginTop="180dp"
+       android:layout_marginStart="200dp"
        android:gravity="center"/>
 
    <ImageButton
-       android:layout_width="130dp"
-       android:layout_height="130dp"
-       android:layout_marginTop="300dp"
-       android:layout_marginStart="40dp"/>
+       android:id="@+id/Imagen2"
+       android:layout_width="150dp"
+       android:layout_height="150dp"
+       android:layout_marginTop="330dp"
+       android:layout_marginStart="40dp"
+       android:scaleType="centerCrop"/>
 
    <TextView
-       android:layout_width="wrap_content"
+       android:id="@+id/Subtitulo2"
+       android:layout_width="150dp"
        android:layout_height="wrap_content"
        android:hint="juguete2..."
-       android:textSize="15sp"
+       android:textSize="30sp"
        android:textColor="@color/black"
-       android:layout_marginTop="310dp"
-       android:layout_marginStart="170dp"/>
+       android:layout_marginTop="380dp"
+       android:layout_marginStart="200dp"/>
 
    <ImageButton
-       android:layout_width="130dp"
-       android:layout_height="130dp"
-       android:layout_marginTop="450dp"
-       android:layout_marginStart="40dp"/>
+       android:id="@+id/Imagen3"
+       android:layout_width="150dp"
+       android:layout_height="150dp"
+       android:layout_marginTop="520dp"
+       android:layout_marginStart="40dp"
+       android:scaleType="centerCrop"/>
 
    <TextView
-       android:layout_width="wrap_content"
+       android:id="@+id/Subtitulo3"
+       android:layout_width="150dp"
        android:layout_height="wrap_content"
        android:hint="juguete3..."
-       android:textSize="15sp"
+       android:textSize="30sp"
        android:textColor="@color/black"
        android:gravity="center"
-       android:layout_marginTop="470dp"
-       android:layout_marginStart="175dp"/>
+       android:layout_marginTop="560dp"
+       android:layout_marginStart="200dp"/>
 
 </RelativeLayout>
