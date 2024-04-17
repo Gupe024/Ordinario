@@ -80,7 +80,7 @@ public class MainActivity5 extends AppCompatActivity {
         buttonComprar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Realizar la compra
+
                 realizarCompra();
             }
         });
@@ -88,7 +88,7 @@ public class MainActivity5 extends AppCompatActivity {
         buttonPagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Realizar el pago
+
                 realizarPago();
             }
         });
@@ -96,7 +96,7 @@ public class MainActivity5 extends AppCompatActivity {
         Anterior.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Volver a MainActivity4
+
                 finish();
             }
         });

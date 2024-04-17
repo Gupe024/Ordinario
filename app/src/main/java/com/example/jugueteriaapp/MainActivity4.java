@@ -51,14 +51,11 @@ public class MainActivity4 extends AppCompatActivity {
         imagen3 = findViewById(R.id.Imagen3);
         subtitulo3 = findViewById(R.id.Subtitulo3);
 
-        // Leer la categoría seleccionada de SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
         String categoriaSeleccionada = sharedPreferences.getString("categoriaSeleccionada", "");
 
-        // Cargar productos según la categoría seleccionada
         cargarProductosPorCategoria(categoriaSeleccionada);
 
-        // Asignar listeners a las imágenes
         asignarListeners();
     }
 
