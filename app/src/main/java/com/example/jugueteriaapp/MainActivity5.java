@@ -1,29 +1,30 @@
 package com.example.jugueteriaapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity5 extends AppCompatActivity {
 
+    // Definir variables para las vistas
     ImageView imagenProducto;
     TextView contenido;
     TextView precios;
     EditText contadorProducto;
     Button buttonComprar;
     Button buttonPagar;
-    Button Anterior = findViewById(R.id.i_anterior);
+    Button Anterior;
 
+    // Datos de los productos de juguetería
     int[] imagenesProductos = {
             R.drawable.caja_registradora,
             R.drawable.patines,
@@ -37,15 +38,15 @@ public class MainActivity5 extends AppCompatActivity {
     };
 
     String[] descripcionesProductos = {
-            "Caja registradora de color rosado con sonido, tiene escáner de precios y una mini pantalla con teclado numérico. Incluye tarjeta de crédito para pasar por el lector de la caja registradora.",
-            "Patines con cuatro ruedas iluminadas y freno frontal. Diseño llamativo con colores aguamarina, rosado, azul, blanco, amarillo y metálicos.",
-            "Mueble de muñecas con 3 armarios pequeños, bañera, cuna con móvil, comedero y lavabo. Colores rosados claros y morados.",
-            "Carro de Rayo McQueen en color rojo con diseños de relámpagos. Control remoto incluido, baterías no incluidas.",
-            "Paquete de cuatro carritos Hot Wheels: dorado, azul, blanco y rojo.",
-            "Pista de carreras con circuito y dinosaurio que atrapa los autos que pasan. Colores naranja, azul, plateado, amarillo y negro.",
-            "Gusano musical morado con antenas amarillas. Patitas con letras del abecedario que suenan al presionarlas. Incluye cuerda para pasear.",
-            "Sonajeros de diferentes formas: ratón, micrófono, círculo y otros con partes sonoras. Colores pastel.",
-            "Xilófono en forma de carrito con piezas de diferentes colores que suenan distinto al golpearlas con el palito amarillo."
+            "Caja registradora de color rosado con sonido, tiene escáner de precios y una mini pantalla con teclado numérico.",
+            "Patines con cuatro ruedas iluminadas y freno frontal. Diseño llamativo con colores variados.",
+            "Mueble de muñecas con 3 armarios pequeños, bañera, cuna, comedero y lavabo.",
+            "Carro de control remoto de color rojo con diseños de relámpagos. Control remoto incluido.",
+            "Paquete de carritos de juguete de diferentes colores y modelos.",
+            "Pista de carreras con circuito y dinosaurio que atrapa los autos que pasan.",
+            "Gusano musical morado con antenas amarillas y partes interactivas.",
+            "Sonajeros de diferentes formas y colores para bebés.",
+            "Xilófono en forma de carrito con piezas de colores."
     };
 
     double[] preciosProductos = {
@@ -57,87 +58,67 @@ public class MainActivity5 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main5);
 
-        // Inicializar las referencias de las vistas
+        // Inicializar vistas
         imagenProducto = findViewById(R.id.Viewproducto);
         contenido = findViewById(R.id.contenido);
         precios = findViewById(R.id.precios);
         contadorProducto = findViewById(R.id.contador_producto);
         buttonComprar = findViewById(R.id.buttoncomprar);
         buttonPagar = findViewById(R.id.buttonpagar);
+        Anterior = findViewById(R.id.i_anterior);
 
-        // Verifica que las referencias no sean null antes de utilizarlas
-        if (imagenProducto != null && contenido != null && precios != null && contadorProducto != null) {
-            mostrarProducto(productoActual);
-        }
+        // Recuperar el índice del producto seleccionado de SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("PreferenciasProducto", Context.MODE_PRIVATE);
+        productoActual = sharedPreferences.getInt("productoSeleccionado", 0);
 
-        // Establecer listeners para los botones
-        if (buttonComprar != null) {
-            buttonComprar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    comprarProducto();
-                }
-            });
-        }
+        // Mostrar datos del producto seleccionado
+        mostrarDatosProducto();
 
-        if (buttonPagar != null) {
-            buttonPagar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    pagarProducto();
-                }
-            });
-        }
+        // Asignar listeners a los botones
+        buttonComprar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Realizar la compra
+                realizarCompra();
+            }
+        });
 
-        if (Anterior != null) {
-            Anterior.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish(); // Regresa a la actividad anterior
-                }
-            });
-        }
+        buttonPagar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Realizar el pago
+                realizarPago();
+            }
+        });
+
+        Anterior.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Volver a MainActivity4
+                finish();
+            }
+        });
     }
 
-    public void mostrarProducto(int indice) {
-        if (imagenProducto != null) {
-            imagenProducto.setImageResource(imagenesProductos[indice]);
-        }
-        if (contenido != null) {
-            contenido.setText(descripcionesProductos[indice]);
-        }
-        if (precios != null) {
-            precios.setText("Precio: $" + preciosProductos[indice]);
-        }
-        if (contadorProducto != null) {
-            contadorProducto.setText("1");
-        }
+    private void mostrarDatosProducto() {
+        // Asigna la imagen, descripción y precio del producto seleccionado
+        imagenProducto.setImageResource(imagenesProductos[productoActual]);
+        contenido.setText(descripcionesProductos[productoActual]);
+        precios.setText(String.format("$%.2f", preciosProductos[productoActual]));
     }
 
-    public void comprarProducto() {
-        int cantidad = Integer.parseInt(contadorProducto.getText().toString());
-        double precio = preciosProductos[productoActual];
-        SharedPreferences sharedPreferences = getSharedPreferences("PreferenciasCompra", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putInt("cantidadProducto", cantidad);
-        editor.putFloat("precioProducto", (float) precio);
-        editor.apply();
-
-        Toast.makeText(this, "Producto agregado al carrito", Toast.LENGTH_SHORT).show();
+    private void realizarCompra() {
+        // Lógica para realizar la compra del producto
+        Toast.makeText(MainActivity5.this, "Producto comprado", Toast.LENGTH_SHORT).show();
     }
 
-    public void pagarProducto() {
-        SharedPreferences sharedPreferences = getSharedPreferences("PreferenciasCompra", Context.MODE_PRIVATE);
-        int cantidadProducto = sharedPreferences.getInt("cantidadProducto", 0);
-        float precioProducto = sharedPreferences.getFloat("precioProducto", 0.0f);
-
-        double totalPagar = cantidadProducto * precioProducto;
-
-        Toast.makeText(this, "Total a pagar: $" + totalPagar, Toast.LENGTH_SHORT).show();
+    private void realizarPago() {
+        // Lógica para realizar el pago de los productos comprados
+        Toast.makeText(MainActivity5.this, "Pago realizado", Toast.LENGTH_SHORT).show();
     }
 }
+
+
 

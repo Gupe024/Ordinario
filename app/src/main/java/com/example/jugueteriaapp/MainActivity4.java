@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity4 extends AppCompatActivity {
@@ -42,7 +41,6 @@ public class MainActivity4 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main4);
 
         titulos = findViewById(R.id.Titulos);
@@ -53,12 +51,14 @@ public class MainActivity4 extends AppCompatActivity {
         imagen3 = findViewById(R.id.Imagen3);
         subtitulo3 = findViewById(R.id.Subtitulo3);
 
+        // Leer la categoría seleccionada de SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
         String categoriaSeleccionada = sharedPreferences.getString("categoriaSeleccionada", "");
 
+        // Cargar productos según la categoría seleccionada
         cargarProductosPorCategoria(categoriaSeleccionada);
 
-        // Asignar listeners a los ImageButtons
+        // Asignar listeners a las imágenes
         asignarListeners();
     }
 
@@ -90,7 +90,7 @@ public class MainActivity4 extends AppCompatActivity {
         imagen1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                irAMainActivity5();
+                pasarADetallesProducto(productosNinas[0]);
             }
         });
 
@@ -98,7 +98,7 @@ public class MainActivity4 extends AppCompatActivity {
         imagen2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                irAMainActivity5();
+                pasarADetallesProducto(productosNinas[1]);
             }
         });
 
@@ -106,12 +106,23 @@ public class MainActivity4 extends AppCompatActivity {
         imagen3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                irAMainActivity5();
+                pasarADetallesProducto(productosNinas[2]);
             }
         });
     }
 
-    private void irAMainActivity5() {
+    private void pasarADetallesProducto(Producto producto) {
+        // Guardar los detalles del producto seleccionado en SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("PreferenciasProducto", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Almacenar los datos del producto seleccionado
+        editor.putString("nombreProducto", producto.getNombre());
+        editor.putString("categoriaProducto", producto.getNombreCategoria());
+        editor.putInt("imagenProducto", producto.getImagen());
+        editor.apply();
+
+        // Iniciar MainActivity5
         Intent intent = new Intent(MainActivity4.this, MainActivity5.class);
         startActivity(intent);
     }
@@ -140,4 +151,7 @@ public class MainActivity4 extends AppCompatActivity {
         }
     }
 }
+
+
+
 
