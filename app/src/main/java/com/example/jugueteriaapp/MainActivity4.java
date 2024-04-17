@@ -1,8 +1,10 @@
 package com.example.jugueteriaapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -19,15 +21,14 @@ public class MainActivity4 extends AppCompatActivity {
     ImageButton imagen3;
     TextView subtitulo3;
 
-    // Define los productos
     Producto[] productosNinas = {
-            new Producto("Caja   registradora", R.drawable.caja_registradora, "Juguetes de niñas"),
+            new Producto("Caja registradora", R.drawable.caja_registradora, "Juguetes de niñas"),
             new Producto("Patines", R.drawable.patines, "Juguetes de niñas"),
             new Producto("Mueble de muñecas", R.drawable.mueble_para_mu_ecas, "Juguetes de niñas")
     };
 
     Producto[] productosNinos = {
-            new Producto("Ryo McQueen", R.drawable.carro_de_a_control_remoto, "Juguetes de niños"),
+            new Producto("Rayo McQueen", R.drawable.carro_de_a_control_remoto, "Juguetes de niños"),
             new Producto("Carros", R.drawable.carros, "Juguetes de niños"),
             new Producto("Pista de carreras", R.drawable.pista_de_carreras, "Juguetes de niños")
     };
@@ -35,7 +36,7 @@ public class MainActivity4 extends AppCompatActivity {
     Producto[] productosBebes = {
             new Producto("Gusanito musical", R.drawable.gusano, "Juguetes de bebés"),
             new Producto("Sonajero", R.drawable.sonajero, "Juguetes de bebés"),
-            new Producto("Xilofono", R.drawable.xilofono, "Juguetes de bebés")
+            new Producto("Xilófono", R.drawable.xilofono, "Juguetes de bebés")
     };
 
     @Override
@@ -44,7 +45,6 @@ public class MainActivity4 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main4);
 
-        // Inicializa elementos de la interfaz
         titulos = findViewById(R.id.Titulos);
         imagen1 = findViewById(R.id.Imagen1);
         subtitulo1 = findViewById(R.id.Subtitulo1);
@@ -53,17 +53,16 @@ public class MainActivity4 extends AppCompatActivity {
         imagen3 = findViewById(R.id.Imagen3);
         subtitulo3 = findViewById(R.id.Subtitulo3);
 
-        // Recupera la categoría seleccionada de SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
         String categoriaSeleccionada = sharedPreferences.getString("categoriaSeleccionada", "");
 
-        // Llama a la función para cargar los productos según la categoría seleccionada
         cargarProductosPorCategoria(categoriaSeleccionada);
+
+        // Asignar listeners a los ImageButtons
+        asignarListeners();
     }
 
-    // Función para cargar productos según la categoría seleccionada
     private void cargarProductosPorCategoria(String categoria) {
-        // Según la categoría, carga los productos correctos
         if (categoria.equals("Juguetes de niñas")) {
             asignarProductos(productosNinas, categoria);
         } else if (categoria.equals("Juguetes de niños")) {
@@ -73,12 +72,9 @@ public class MainActivity4 extends AppCompatActivity {
         }
     }
 
-    // Función para asignar productos a la interfaz
     private void asignarProductos(Producto[] productos, String categoria) {
-        // Asigna el título de la categoría
         titulos.setText(categoria);
 
-        // Asigna productos a los elementos de la interfaz
         imagen1.setImageResource(productos[0].getImagen());
         subtitulo1.setText(productos[0].getNombre());
 
@@ -89,7 +85,37 @@ public class MainActivity4 extends AppCompatActivity {
         subtitulo3.setText(productos[2].getNombre());
     }
 
-    // Clase Producto para almacenar información de los productos
+    private void asignarListeners() {
+        // Listener para imagen1
+        imagen1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                irAMainActivity5();
+            }
+        });
+
+        // Listener para imagen2
+        imagen2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                irAMainActivity5();
+            }
+        });
+
+        // Listener para imagen3
+        imagen3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                irAMainActivity5();
+            }
+        });
+    }
+
+    private void irAMainActivity5() {
+        Intent intent = new Intent(MainActivity4.this, MainActivity5.class);
+        startActivity(intent);
+    }
+
     class Producto {
         private String nombre;
         private int imagen;
@@ -114,3 +140,4 @@ public class MainActivity4 extends AppCompatActivity {
         }
     }
 }
+

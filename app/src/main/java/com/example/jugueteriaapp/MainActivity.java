@@ -1,6 +1,5 @@
 package com.example.jugueteriaapp;
 
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,9 +10,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,11 +32,8 @@ public class MainActivity extends AppCompatActivity {
         buttoniniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainActivity3.class);
                 iniciarSesion();
-                startActivity(intent);
             }
-
         });
 
         registrobutton.setOnClickListener(new View.OnClickListener() {
@@ -50,31 +43,41 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     private void iniciarSesion() {
         String usuario = user.getText().toString();
         String password = pass.getText().toString();
 
-        if(verificarCredenciales(usuario, password)){
-            Toast.makeText(this, "Bienvenid@"+usuario+",¿Qué te llevaras a tú casa este día?", Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(this, "Usuario y contraseña incorrectos", Toast.LENGTH_SHORT).show();
+        if (verificarCredenciales(usuario, password)) {
+            Toast.makeText(this, "Bienvenid@ " + usuario + ", ¿Qué te podemos llevar a tú casa este día?", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, MainActivity3.class);
+            startActivity(intent);
+        } else {
+            if (noHayCredencialesAlmacenadas()) {
+                // Si no hay credenciales almacenadas, redirigir a la pantalla de registro
+                Toast.makeText(this, "No se encontraron datos. Por favor regístrese primero.", Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(this, "Usuario y contraseña incorrectos. Por favor intenta nuevamente.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-    private boolean verificarCredenciales(String usuario, String password) {
-
+    // Método para verificar si no hay credenciales almacenadas
+    private boolean noHayCredencialesAlmacenadas() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
-
         String usuarioAlmacenado = sharedPreferences.getString("usuario", null);
         String passAlmacenado = sharedPreferences.getString("password", null);
 
-        if (usuarioAlmacenado == null || passAlmacenado == null) {
-            Toast.makeText(this, "Error: No se encontraron credenciales almacenadas", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        return usuarioAlmacenado == null || passAlmacenado == null;
+    }
+
+    // Método para verificar si las credenciales coinciden
+    private boolean verificarCredenciales(String usuario, String password) {
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        String usuarioAlmacenado = sharedPreferences.getString("usuario", null);
+        String passAlmacenado = sharedPreferences.getString("password", null);
 
         return usuario.equals(usuarioAlmacenado) && password.equals(passAlmacenado);
     }
